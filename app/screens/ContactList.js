@@ -62,6 +62,7 @@ export default function ContactList(props) {
         onChangeText={handleSearch}
         lightTheme
         value={search}
+        platform='ios'
       />
       <FlatList
         data={listContact}

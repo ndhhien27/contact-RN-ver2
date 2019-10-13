@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Text, View, TextInput, StyleSheet, Button } from 'react-native'
 
-import man from '../assets/man.png'
+import { Input } from 'react-native-elements'
+
 import ContactImg from '../components/ContactImg'
 import { ContactContext } from '../Contexts/ContactContext'
+import { theme } from '../constants/theme'
 
 export default function Contact(props) {
     const { navigation } = props
@@ -24,25 +26,35 @@ export default function Contact(props) {
             editContact(obj)
             return obj
         })
-        alert('DONE')
     }
     useEffect(() => {
         navigation.setParams({ btn: handleSaveBtn })
     }, [])
     return [
         <View key='1' style={{ alignItems: "center", marginTop: 16 }} >
-            <ContactImg name={prevContact.name} size='xlarge' />
+            <ContactImg name={prevContact.name} size='large' />
         </View>,
         <View key='2' style={styles.container}>
-            <TextInput
+            <Input
+                label='name'
+                labelStyle={{ fontSize: 20 }}
                 defaultValue={prevContact.name}
-                style={styles.textInput}
                 onChangeText={(text) => onHadleChange('name', text)}
+                inputStyle={{
+                    color: theme.color.blue,
+                    fontSize: 28
+                }}
             />
-            <TextInput
+            <Input
+                label='phone'
+                labelStyle={{ fontSize: 20 }}
                 defaultValue={prevContact.phone}
-                style={styles.textInput}
                 onChangeText={(text) => onHadleChange('phone', text)}
+                inputStyle={{
+                    color: theme.color.blue,
+                    fontSize: 28
+                }}
+                containerStyle={{ marginTop: 16 }}
             />
         </View>
     ]
@@ -50,7 +62,7 @@ export default function Contact(props) {
 }
 
 Contact.navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('contactName'),
+    title: 'Edit',
     headerRight: (
         <Button
             title='Save'
